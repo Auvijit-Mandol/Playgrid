@@ -1,6 +1,0 @@
-{
-  "name": "Eco-Rogue: Shift & Survive",
-  "description": "A tactical hybrid puzzle-roguelike where you manipulate the 5x5 world itself. Swipe rows and columns to craft, battle monsters, trigger environmental combos, and survive.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

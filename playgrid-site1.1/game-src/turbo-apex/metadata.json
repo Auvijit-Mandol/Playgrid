@@ -1,6 +1,0 @@
-{
-  "name": "Turbo Apex - 2D Racing",
-  "description": "High-octane 2D arcade car racing game optimized for Android with obstacles, nitro power-ups, car garage, and haptic controls.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
