@@ -1,0 +1,20 @@
+{
+  "name": "Playgrid",
+  "tagline": "Free browser games. No download needed.",
+  "siteUrl": "https://YOUR-USERNAME.github.io/YOUR-REPO",
+  "email": "hello@example.com",
+  "categories": ["Action","Adventure","Arcade","Racing","Shooting","Puzzle","Strategy","Sports","Multiplayer","Casual","Simulation","Platformer","Educational","Girls"],
+  "nav": [
+    {"t":"Home","u":"index.html"},{"t":"All Games","u":"games.html"},{"t":"Categories","u":"categories.html"},
+    {"t":"Popular","u":"popular.html"},{"t":"New","u":"new.html"},{"t":"Favorites","u":"favorites.html"}
+  ],
+  "footer": [
+    {"t":"About Us","u":"about.html"},{"t":"Contact Us","u":"contact.html"},{"t":"Privacy Policy","u":"privacy.html"},
+    {"t":"Terms and Conditions","u":"terms.html"},{"t":"Disclaimer","u":"disclaimer.html"}
+  ],
+  "ads": {
+    "enabled": false,
+    "publisher": "ca-pub-0000000000000000",
+    "slots": { "homeBanner": "", "betweenSections": "", "gameSidebar": "", "belowPlayer": "", "betweenRelated": "" }
+  }
+}
