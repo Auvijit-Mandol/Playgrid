@@ -1,0 +1,1983 @@
+# Product Requirements Document (PRD)
+
+## Eco-Rogue: Shift & Survive
+
+**Document Version:** 1.0  
+**Platform:** Android First, iOS Later  
+**Genre:** Hybrid-Casual Puzzle / Roguelike / Survival  
+**Primary Orientation:** Portrait  
+**Target Session Length:** 2–5 minutes  
+**Business Model:** Free-to-Play  
+**Target Audience:** Casual and mid-core mobile players  
+**Primary Monetization:** Rewarded Ads + IAP + Cosmetics + Seasonal Progression
+
+---
+
+# 1. Product Vision
+
+**Eco-Rogue: Shift & Survive** is a mobile puzzle-roguelike where the player does not directly move the hero.
+
+Instead, the player manipulates the **environment itself**.
+
+The battlefield consists of a dynamic **5×5 grid** containing terrain, enemies, resources, hazards, treasure, and interactive objects.
+
+Players swipe rows and columns to rearrange the battlefield.
+
+Every shift can:
+
+- move enemies,
+- bring resources toward the hero,
+- create crafting combinations,
+- move hazards,
+- trigger attacks,
+- expose treasure,
+- create defensive opportunities,
+- or put the hero in danger.
+
+The central design philosophy is:
+
+> **“Don't move through the world. Move the world around you.”**
+
+The game combines the immediate tactile satisfaction of tile-sliding puzzle games with the decision-making, build variety, and replayability of a roguelike.
+
+---
+
+# 2. Product Goals
+
+The game should accomplish five primary goals.
+
+### Easy to Understand
+
+A new player should understand the fundamental interaction within the first 30–60 seconds.
+
+**Swipe → Grid moves → Something happens.**
+
+### Difficult to Master
+
+Although shifting is simple, advanced players should learn to predict:
+
+- enemy movement,
+- environmental interactions,
+- crafting opportunities,
+- chain reactions,
+- boss attacks,
+- resource positioning,
+- and future board states.
+
+### Short Sessions
+
+A normal run should take approximately:
+
+**2–5 minutes.**
+
+Longer challenge modes can later support 5–10 minute sessions.
+
+### High Replayability
+
+No two runs should be identical due to:
+
+- procedural board generation,
+- randomized enemies,
+- randomized perks,
+- biome variation,
+- random events,
+- equipment combinations,
+- boss modifiers,
+- and difficulty scaling.
+
+### Monetization Without Pay-to-Win
+
+Players must be able to enjoy and progress through the core game without purchasing anything.
+
+Monetization should primarily revolve around:
+
+- cosmetics,
+- optional convenience,
+- rewarded advertisements,
+- seasonal content,
+- and optional progression acceleration.
+
+---
+
+# 3. Target Audience
+
+### Primary Audience
+
+Age:
+
+**13–35**
+
+Player types:
+
+- casual puzzle players,
+- roguelike fans,
+- mobile strategy players,
+- short-session gamers,
+- 2048-style puzzle players,
+- survival-game fans.
+
+### Player Motivation
+
+Players should experience:
+
+**Satisfaction**
+
+from shifting and combining tiles.
+
+**Tension**
+
+from dangerous board situations.
+
+**Discovery**
+
+from finding new combinations and perks.
+
+**Power Growth**
+
+from creating stronger builds.
+
+**Mastery**
+
+from learning board manipulation.
+
+**Collection**
+
+through skins, equipment appearances, heroes, achievements, and seasonal rewards.
+
+---
+
+# 4. Core Gameplay Loop
+
+The primary gameplay loop is:
+
+**Start Run**
+
+↓
+
+**Generate 5×5 Board**
+
+↓
+
+**Analyze Board**
+
+↓
+
+**Swipe Row/Column**
+
+↓
+
+**Tiles Shift**
+
+↓
+
+**Resolve Interactions**
+
+↓
+
+**Hero Attacks / Collects / Crafts**
+
+↓
+
+**Enemies React**
+
+↓
+
+**Environmental Effects Trigger**
+
+↓
+
+**Player Chooses Next Shift**
+
+↓
+
+**Complete Wave Objective**
+
+↓
+
+**Choose 1 of 3 Perks**
+
+↓
+
+**Next Wave**
+
+↓
+
+**Boss Encounter**
+
+↓
+
+**Run Ends**
+
+↓
+
+**Receive Meta Rewards**
+
+↓
+
+**Upgrade / Unlock Cosmetics**
+
+↓
+
+**Start New Run**
+
+---
+
+# 5. Core Board System
+
+## 5.1 Grid
+
+Default battlefield:
+
+**5 columns × 5 rows = 25 tiles**
+
+Example:
+
+| 🌲 | 🪵 | 👹 | 💧 | 💰 |
+|---|---|---|---|---|
+| 🔥 | 🛡️ | 🌲 | 🪵 | 💧 |
+| 💰 | 👾 | 🧙 | 🌲 | 🔥 |
+| 🪵 | 💧 | ⚔️ | 👹 | 🌲 |
+| 🔥 | 🌲 | 💰 | 💧 | 🛡️ |
+
+The hero normally occupies one board position.
+
+---
+
+# 6. Grid Shift System
+
+This is the game's signature mechanic.
+
+Players manipulate rows and columns rather than directly controlling the hero.
+
+### Horizontal Shift
+
+Swipe left/right on a row.
+
+Example:
+
+Before:
+
+`A B C D E`
+
+Swipe Right:
+
+`E A B C D`
+
+### Vertical Shift
+
+Swipe up/down on a column.
+
+Before:
+
+A  
+B  
+C  
+D  
+E
+
+Swipe Down:
+
+E  
+A  
+B  
+C  
+D
+
+### Wraparound
+
+For the MVP, rows and columns should use **wraparound movement**.
+
+Tiles leaving one side return from the opposite side.
+
+This makes every swipe predictable and avoids empty spaces.
+
+---
+
+# 7. Hero Interaction System
+
+The hero automatically interacts with nearby tiles after a valid shift resolves.
+
+Possible interactions include:
+
+- attack enemy,
+- gather resource,
+- open chest,
+- collect potion,
+- activate shield,
+- trigger environmental object,
+- craft/combine compatible resources.
+
+The player therefore controls the hero **indirectly** by changing the surrounding board.
+
+---
+
+# 8. Turn Resolution
+
+Every successful swipe represents **one turn**.
+
+Recommended resolution order:
+
+1. Player performs swipe.
+2. Selected row/column moves.
+3. Board animation completes.
+4. Matching/resource combinations are detected.
+5. Hero interactions resolve.
+6. Player status effects resolve.
+7. Environmental effects resolve.
+8. Enemy actions resolve.
+9. Enemy status effects resolve.
+10. Death/wave completion is checked.
+11. New tiles spawn if required.
+12. Control returns to player.
+
+The sequence must remain deterministic so players can learn and predict the system.
+
+---
+
+# 9. Tile System
+
+Tiles should use a modular architecture.
+
+Each tile contains properties such as:
+
+- Tile ID
+- Tile Type
+- Rarity
+- Health
+- Damage
+- Element
+- Interaction Type
+- Movement Behavior
+- Status Effects
+- Merge Rules
+- Spawn Weight
+
+---
+
+# 10. Tile Categories
+
+## Terrain
+
+Examples:
+
+- Grass
+- Forest
+- Water
+- Lava
+- Ice
+- Poison Swamp
+- Sand
+- Stone
+
+Terrain affects units differently.
+
+Example:
+
+**Lava**
+
+Deals damage when a character remains adjacent to or enters its danger zone.
+
+**Water**
+
+Can extinguish burning tiles.
+
+**Ice**
+
+May cause additional movement.
+
+---
+
+# 11. Resource Tiles
+
+Initial resources:
+
+- Wood
+- Stone
+- Metal
+- Herbs
+- Crystal
+- Energy
+
+Resources are used primarily through automatic combinations rather than complicated crafting menus.
+
+---
+
+# 12. Crafting System
+
+Crafting should be visual, fast, and automatic.
+
+Example progression:
+
+**Wood + Wood → Wooden Shield**
+
+**Metal + Metal → Iron Blade**
+
+**Herb + Herb → Healing Potion**
+
+Higher-tier recipes can introduce cross-resource combinations.
+
+Example:
+
+**Wood + Metal → Reinforced Shield**
+
+**Crystal + Sword → Crystal Sword**
+
+Crafting should happen directly on the board whenever valid conditions are satisfied.
+
+No complicated crafting interface should interrupt gameplay.
+
+---
+
+# 13. Equipment
+
+Initial equipment categories:
+
+### Weapon
+
+Controls offensive abilities.
+
+Examples:
+
+- Wooden Sword
+- Iron Sword
+- Fire Blade
+- Poison Dagger
+- Lightning Hammer
+
+### Shield
+
+Provides defense.
+
+Examples:
+
+- Wooden Shield
+- Iron Shield
+- Reflective Shield
+
+### Utility
+
+Provides special abilities.
+
+Examples:
+
+- Magnet
+- Healing Charm
+- Fire Charm
+- Resource Booster
+
+For the MVP, inventory capacity should remain intentionally small.
+
+Recommended:
+
+**3 active equipment slots.**
+
+---
+
+# 14. Combat System
+
+Combat should remain mostly automatic.
+
+The strategy comes from positioning.
+
+Example:
+
+Hero becomes adjacent to enemy.
+
+↓
+
+Hero automatically attacks.
+
+↓
+
+Enemy loses HP.
+
+↓
+
+If enemy survives, it may attack during the enemy phase.
+
+This avoids turning the game into a traditional action RPG.
+
+---
+
+# 15. Enemy Types
+
+MVP should contain approximately **8–12 enemy archetypes**.
+
+Examples:
+
+### Slime
+
+Basic enemy.
+
+Low health and predictable behavior.
+
+### Goblin
+
+Moves toward resources and can steal them.
+
+### Fire Elemental
+
+Creates lava/fire tiles.
+
+### Poison Spider
+
+Applies poison.
+
+### Skeleton
+
+Can revive once.
+
+### Charger
+
+Attacks along a row or column.
+
+### Shield Enemy
+
+Must be attacked from a vulnerable direction.
+
+### Mimic
+
+Appears as a chest before attacking.
+
+Enemies should change the puzzle rather than simply having more HP.
+
+---
+
+# 16. Enemy Intent System
+
+Players should usually understand what enemies will do next.
+
+Display visual indicators such as:
+
+- attack arrow,
+- danger highlight,
+- target tile,
+- movement direction,
+- special attack icon.
+
+This makes deaths feel like consequences of decisions rather than randomness.
+
+---
+
+# 17. Health System
+
+Example starting stats:
+
+**Hero HP: 100**
+
+Damage can originate from:
+
+- monsters,
+- traps,
+- lava,
+- poison,
+- boss attacks,
+- environmental effects.
+
+Health can be restored through:
+
+- potions,
+- perks,
+- healing tiles,
+- equipment effects.
+
+---
+
+# 18. Status Effects
+
+Initial effects:
+
+**Burn**
+
+Damage over multiple turns.
+
+**Poison**
+
+Increasing damage over time.
+
+**Freeze**
+
+Prevents or limits interaction temporarily.
+
+**Shield**
+
+Absorbs damage.
+
+**Stun**
+
+Skips an enemy action.
+
+**Regeneration**
+
+Restores HP over several turns.
+
+---
+
+# 19. Wave Structure
+
+Recommended run:
+
+### Wave 1
+
+Tutorial/easy combat.
+
+### Wave 2
+
+More enemies and hazards.
+
+### Wave 3
+
+Elite encounter.
+
+### Wave 4
+
+High-pressure puzzle.
+
+### Wave 5
+
+Boss.
+
+A complete standard run should target approximately:
+
+**3–5 minutes.**
+
+---
+
+# 20. Wave Objectives
+
+Not every wave should simply require killing enemies.
+
+Possible objectives:
+
+- defeat all enemies,
+- survive X turns,
+- collect X resources,
+- open a treasure chest,
+- destroy corrupted tiles,
+- protect an NPC,
+- reach a crafting target,
+- defeat an elite enemy.
+
+Objective variation improves replayability.
+
+---
+
+# 21. Roguelike Perk System
+
+After completing certain waves, present:
+
+**3 randomized perks.**
+
+Player selects one.
+
+Example:
+
+### Fire Chain
+
+Fire tiles explode when shifted.
+
+### Toxic Blood
+
+Poison damage against the hero is reduced.
+
+### Resource Magnet
+
+Resources within two tiles are automatically collected.
+
+### Critical Shift
+
+Every fifth swipe guarantees a critical attack.
+
+### Healing Craft
+
+Crafting restores HP.
+
+### Frozen World
+
+Water has a chance to freeze enemies.
+
+### Shield Master
+
+Shields absorb additional damage.
+
+Perks should create builds rather than simply increasing numbers.
+
+---
+
+# 22. Perk Rarity
+
+Recommended rarity system:
+
+- Common
+- Rare
+- Epic
+- Legendary
+
+Example:
+
+Common:
+
+`+10% weapon damage`
+
+Legendary:
+
+`Every third shift triggers the hero's weapon against every adjacent enemy.`
+
+---
+
+# 23. Build Archetypes
+
+Players should naturally create different builds.
+
+Examples:
+
+### Fire Build
+
+Fire spreading + explosions + burn damage.
+
+### Poison Build
+
+Poison stacking + poison explosions.
+
+### Tank Build
+
+Shield generation + healing.
+
+### Critical Build
+
+High-risk/high-damage attacks.
+
+### Crafting Build
+
+Crafting activates powerful effects.
+
+### Environmental Build
+
+Terrain itself becomes the player's weapon.
+
+This greatly improves replayability.
+
+---
+
+# 24. Boss System
+
+Bosses should manipulate the board.
+
+Avoid bosses that are simply enemies with huge health bars.
+
+Example boss:
+
+## Inferno Golem
+
+Abilities:
+
+**Lava Spawn**
+
+Converts random tiles into lava.
+
+**Board Lock**
+
+Temporarily prevents a row from shifting.
+
+**Meteor Warning**
+
+Marks tiles that will explode after two turns.
+
+This forces players to manipulate the grid strategically.
+
+---
+
+# 25. Biomes
+
+Launch version can contain three main biomes.
+
+## Forest
+
+Beginner environment.
+
+Features:
+
+- wood,
+- water,
+- poison plants,
+- goblins.
+
+## Volcano
+
+Features:
+
+- lava,
+- fire enemies,
+- exploding tiles.
+
+## Frozen Realm
+
+Features:
+
+- ice,
+- sliding mechanics,
+- frozen enemies.
+
+Future updates can introduce:
+
+- Desert
+- Swamp
+- Ocean
+- Cyber World
+- Haunted Realm
+
+---
+
+# 26. Procedural Generation
+
+Each run should randomize:
+
+- starting tile placement,
+- resources,
+- enemies,
+- hazards,
+- chest positions,
+- perk selections,
+- elite modifiers,
+- boss modifiers.
+
+Generation must follow balancing rules.
+
+Completely unrestricted randomness should be avoided.
+
+The generator must ensure that boards remain playable and avoid unavoidable instant-death situations.
+
+---
+
+# 27. Difficulty System
+
+Difficulty should increase gradually through:
+
+- stronger enemies,
+- additional hazards,
+- fewer safe tiles,
+- elite modifiers,
+- smarter enemy behavior,
+- more complex objectives.
+
+Players should lose because of strategic mistakes rather than artificial stat inflation.
+
+---
+
+# 28. Meta Progression
+
+After runs, players receive permanent progression resources.
+
+Possible currencies:
+
+### Eco Shards
+
+Primary progression currency.
+
+Used for:
+
+- hero upgrades,
+- starting equipment,
+- permanent unlocks.
+
+### Coins
+
+Common currency.
+
+Used for:
+
+- basic upgrades,
+- rerolls,
+- crafting unlocks.
+
+### Gems
+
+Premium currency.
+
+Used primarily for:
+
+- cosmetics,
+- premium progression,
+- special bundles.
+
+---
+
+# 29. Upgrade Tree
+
+Example permanent upgrades:
+
+**Starting HP**
+
+Level 1 → +5 HP  
+Level 2 → +5 HP
+
+**Starting Shield**
+
+Begin each run with shield.
+
+**Resource Luck**
+
+Improves resource spawn probability.
+
+**Chest Luck**
+
+Improves treasure rarity.
+
+Permanent progression should help players without making skill irrelevant.
+
+---
+
+# 30. Character System
+
+Launch with one main hero.
+
+Additional heroes can later provide alternative play styles.
+
+Example:
+
+### Ranger
+
+Better ranged attacks.
+
+### Engineer
+
+Improved crafting.
+
+### Pyromancer
+
+Fire-focused abilities.
+
+### Guardian
+
+Shield-focused abilities.
+
+New heroes should generally represent **sidegrades**, not strictly stronger characters.
+
+---
+
+# 31. Main Screens
+
+Required application screens:
+
+1. Splash Screen
+2. Main Menu
+3. Biome Selection
+4. Hero Selection
+5. Gameplay
+6. Perk Selection
+7. Pause
+8. Victory
+9. Defeat
+10. Upgrade Screen
+11. Cosmetics
+12. Shop
+13. Battle Pass
+14. Daily Rewards
+15. Missions
+16. Achievements
+17. Settings
+18. Player Profile
+
+---
+
+# 32. Home Screen
+
+Primary UI:
+
+**Eco-Rogue**
+
+Hero displayed centrally.
+
+Primary button:
+
+**PLAY**
+
+Secondary navigation:
+
+**Heroes | Upgrade | Shop | Missions**
+
+Top bar:
+
+**Coins | Gems | Settings**
+
+The screen should remain visually clean.
+
+The Play button should dominate the interface.
+
+---
+
+# 33. Gameplay HUD
+
+Top:
+
+**HP | Shield | Wave**
+
+Center:
+
+**5×5 gameplay board**
+
+Below board:
+
+**Weapon | Equipment | Special Ability**
+
+Bottom:
+
+**Objective / Turn information**
+
+Avoid unnecessary UI surrounding the grid.
+
+The board is the game's primary visual focus.
+
+---
+
+# 34. Art Direction
+
+Recommended style:
+
+**Stylized 2D / 2.5D**
+
+Visual inspiration:
+
+- bright,
+- readable,
+- exaggerated,
+- colorful,
+- mobile-friendly.
+
+Every tile must remain immediately identifiable even on a small smartphone.
+
+Avoid excessive visual detail.
+
+---
+
+# 35. Animation
+
+Grid manipulation must feel satisfying.
+
+Required feedback:
+
+- tile slide easing,
+- impact bounce,
+- crafting merge animation,
+- enemy hit reaction,
+- damage numbers,
+- screen shake,
+- particle effects,
+- chest opening,
+- boss entrance.
+
+Target shift animation:
+
+approximately **150–250 ms**.
+
+Gameplay should feel responsive rather than waiting for long animations.
+
+---
+
+# 36. Audio
+
+Required sound categories:
+
+- swipe,
+- tile movement,
+- crafting,
+- sword hit,
+- shield block,
+- enemy death,
+- resource collection,
+- chest opening,
+- perk selection,
+- boss warning,
+- victory,
+- defeat.
+
+Haptic feedback should accompany important interactions where supported.
+
+---
+
+# 37. Tutorial
+
+Tutorial target:
+
+**Under 90 seconds.**
+
+Teach mechanics through gameplay rather than large text boxes.
+
+Tutorial sequence:
+
+**Step 1**
+
+“Swipe this row.”
+
+Player performs swipe.
+
+**Step 2**
+
+“Move the wood beside the hero.”
+
+**Step 3**
+
+“Combine two Wood tiles.”
+
+**Step 4**
+
+“Bring the enemy beside your hero.”
+
+Hero attacks automatically.
+
+**Step 5**
+
+Complete mini-wave.
+
+Then:
+
+**Choose your first perk.**
+
+Tutorial complete.
+
+---
+
+# 38. Monetization Philosophy
+
+Monetization should never destroy the puzzle strategy.
+
+Core principle:
+
+> Spending money should increase customization and convenience—not replace skill.
+
+---
+
+# 39. Rewarded Ads
+
+Rewarded ads should be optional.
+
+Recommended placements:
+
+### Revive
+
+After death:
+
+**Watch Ad → Revive once**
+
+Maximum:
+
+**1 ad revive per normal run.**
+
+### Reward Multiplier
+
+After successful run:
+
+**Watch Ad → ×2 selected rewards**
+
+### Perk Reroll
+
+Player dislikes three perks.
+
+**Watch Ad → Generate three new choices**
+
+### Bonus Chest
+
+Optional post-run chest.
+
+### Daily Bonus
+
+Optional advertisement to increase daily rewards.
+
+---
+
+# 40. Interstitial Ads
+
+Interstitial advertisements should be used conservatively.
+
+Never interrupt active gameplay.
+
+Potential placement:
+
+after completed/failed runs.
+
+Avoid displaying an interstitial after every run during early retention testing.
+
+Frequency should be controlled remotely.
+
+---
+
+# 41. No-Ads Purchase
+
+Suggested price:
+
+**$2.99–$4.99**
+
+Removes forced/interstitial advertising.
+
+Rewarded advertising should normally remain optional because players intentionally exchange attention for rewards.
+
+Do not promise “auto-claim all rewarded-ad rewards” in the base No-Ads product unless economy balancing confirms that this is sustainable.
+
+---
+
+# 42. Cosmetics
+
+Sell cosmetic content such as:
+
+- hero skins,
+- sword skins,
+- shields,
+- grid themes,
+- swipe trails,
+- death effects,
+- spawn effects,
+- victory animations.
+
+Cosmetics should have no competitive advantage.
+
+---
+
+# 43. Seasonal Pass
+
+Introduce after the core game demonstrates healthy retention.
+
+Example:
+
+**30-day season**
+
+Contains:
+
+- free reward track,
+- premium reward track,
+- skins,
+- currency,
+- cosmetic effects,
+- challenges.
+
+Avoid launching an overly complex Battle Pass during MVP testing.
+
+---
+
+# 44. Daily Missions
+
+Examples:
+
+**Craft 5 items**
+
+**Defeat 20 monsters**
+
+**Complete 3 runs**
+
+**Kill a boss without using a revive**
+
+**Trigger 10 environmental kills**
+
+Rewards:
+
+- Coins
+- Eco Shards
+- cosmetic progression
+- season XP
+
+---
+
+# 45. Achievements
+
+Examples:
+
+**First Shift**
+
+Complete first move.
+
+**Survivor**
+
+Complete first run.
+
+**Craft Master**
+
+Craft 100 items.
+
+**Untouchable**
+
+Defeat a boss without taking damage.
+
+**Eco Warrior**
+
+Defeat 1,000 enemies.
+
+---
+
+# 46. Retention Systems
+
+Primary retention mechanisms:
+
+- Daily Rewards
+- Daily Missions
+- Weekly Challenges
+- Unlockable Heroes
+- Upgrade Tree
+- Cosmetics
+- Achievements
+- Biome Unlocks
+- Seasonal Challenges
+- Limited Events
+
+Do not overload the first-time user with all systems simultaneously.
+
+Unlock them gradually.
+
+---
+
+# 47. MVP Scope
+
+The first version should prove one question:
+
+> **Is shifting a grid to indirectly fight and survive genuinely fun?**
+
+Do not build the entire live-service game before answering this.
+
+### MVP Features
+
+- 5×5 grid
+- horizontal shifts
+- vertical shifts
+- wraparound
+- hero
+- HP
+- basic combat
+- 5–6 tile types
+- 3 resources
+- crafting
+- 4 enemy types
+- 1 biome
+- 1 boss
+- 10–15 perks
+- procedural board generation
+- victory/defeat
+- basic progression
+- save system
+- basic audio
+- tutorial
+
+No Battle Pass is required for MVP.
+
+No multiplayer is required.
+
+No complicated account system is required.
+
+---
+
+# 48. MVP Content Target
+
+Recommended initial prototype:
+
+**Biome:** Forest
+
+**Enemies:**
+
+- Slime
+- Goblin
+- Spider
+- Charger
+
+**Boss:**
+
+Forest Guardian
+
+**Resources:**
+
+- Wood
+- Stone
+- Herb
+
+**Hazards:**
+
+- Poison Plant
+- Water
+
+**Equipment:**
+
+- Wooden Sword
+- Wooden Shield
+- Stone Hammer
+- Healing Potion
+
+**Perks:**
+
+approximately 15.
+
+---
+
+# 49. Technical Architecture
+
+Recommended engine:
+
+**Unity**
+
+Recommended language:
+
+**C#**
+
+Alternative:
+
+**Godot + GDScript/C#**
+
+Unity is recommended if commercial mobile monetization, analytics, advertising integrations, and rapid cross-platform deployment are priorities.
+
+---
+
+# 50. Core Code Architecture
+
+Suggested systems:
+
+```text
+GameManager
+│
+├── GridManager
+│   ├── GridGenerator
+│   ├── GridShifter
+│   └── TileResolver
+│
+├── TurnManager
+│
+├── PlayerManager
+│   ├── HealthSystem
+│   ├── EquipmentSystem
+│   └── StatusEffectSystem
+│
+├── EnemyManager
+│   ├── EnemyAI
+│   └── EnemySpawner
+│
+├── CombatSystem
+│
+├── CraftingSystem
+│
+├── PerkSystem
+│
+├── ProceduralGenerationSystem
+│
+├── WaveManager
+│
+├── ProgressionManager
+│
+├── EconomyManager
+│
+├── SaveManager
+│
+├── AudioManager
+│
+├── AnalyticsManager
+│
+└── UIManager
+```
+
+Systems should communicate through events rather than excessive direct dependencies.
+
+---
+
+# 51. Tile Data Architecture
+
+Tiles should preferably be data-driven.
+
+Example conceptual model:
+
+```text
+TileData
+
+ID
+Name
+Type
+Sprite
+Rarity
+Health
+Damage
+Element
+SpawnWeight
+CanMerge
+MergeResult
+InteractionType
+StatusEffect
+```
+
+This allows developers to add new content without rewriting core board logic.
+
+---
+
+# 52. Save System
+
+Save locally:
+
+- progression,
+- unlocked heroes,
+- currencies,
+- settings,
+- tutorial status,
+- achievements,
+- cosmetic unlocks.
+
+Cloud saving can be introduced later.
+
+Critical premium transactions should never rely solely on editable local data.
+
+---
+
+# 53. Analytics
+
+Important events:
+
+```text
+game_open
+tutorial_start
+tutorial_complete
+
+run_start
+run_end
+run_win
+run_loss
+
+wave_start
+wave_complete
+
+shift_performed
+
+damage_taken
+enemy_killed
+
+item_crafted
+
+perk_offered
+perk_selected
+
+boss_start
+boss_defeated
+
+rewarded_ad_offer
+rewarded_ad_start
+rewarded_ad_complete
+
+iap_view
+iap_start
+iap_complete
+```
+
+---
+
+# 54. Key Metrics
+
+Track:
+
+### D1 Retention
+
+Percentage returning one day later.
+
+### D7 Retention
+
+Percentage returning after seven days.
+
+### Average Session Length
+
+### Runs Per User
+
+### Tutorial Completion
+
+### Run Completion Rate
+
+### Death Location
+
+Identify where players repeatedly fail.
+
+### Perk Pick Rate
+
+Shows balancing problems.
+
+### Ad Engagement
+
+### ARPDAU
+
+Average revenue per daily active user.
+
+### Conversion Rate
+
+Percentage purchasing IAP.
+
+---
+
+# 55. Remote Configuration
+
+Important values should be configurable without rebuilding the application where practical.
+
+Examples:
+
+- enemy HP,
+- damage,
+- spawn rates,
+- perk probabilities,
+- resource rates,
+- ad frequency,
+- reward amounts,
+- difficulty scaling.
+
+This is particularly important for live balancing.
+
+---
+
+# 56. Performance Requirements
+
+Target:
+
+**60 FPS**
+
+Minimum acceptable:
+
+**30 FPS on supported lower-end devices**
+
+Game should support a wide range of Android hardware.
+
+Optimization priorities:
+
+- object pooling,
+- sprite atlases,
+- controlled particle counts,
+- limited overdraw,
+- compressed audio,
+- lightweight shaders.
+
+---
+
+# 57. Offline Support
+
+Core gameplay should work offline.
+
+Offline functionality:
+
+- normal runs,
+- progression,
+- unlocked content,
+- settings.
+
+Internet-dependent functionality can include:
+
+- rewarded ads,
+- purchases,
+- cloud save,
+- events,
+- leaderboards.
+
+The game should never become unusable simply because an advertisement cannot load.
+
+---
+
+# 58. Accessibility
+
+Include:
+
+- sound controls,
+- music controls,
+- vibration controls,
+- reduced screen shake,
+- clear icons,
+- readable fonts,
+- high visual contrast.
+
+Do not rely exclusively on color to communicate hazards or status.
+
+---
+
+# 59. Anti-Frustration Rules
+
+Avoid:
+
+- unavoidable damage,
+- hidden enemy attacks,
+- excessive random deaths,
+- mandatory advertisements,
+- extremely slow animations,
+- excessive pop-ups,
+- impossible procedural boards.
+
+When a dangerous action will occur, players should normally receive enough information to understand the risk.
+
+---
+
+# 60. Development Roadmap
+
+## Phase 1 — Core Prototype
+
+Build:
+
+- grid,
+- swipe detection,
+- row shifting,
+- column shifting,
+- hero interaction,
+- one enemy,
+- basic combat.
+
+**Goal:**
+
+Determine whether shifting the environment is satisfying.
+
+---
+
+## Phase 2 — Vertical Slice
+
+Add:
+
+- polished Forest biome,
+- crafting,
+- 4 enemies,
+- perks,
+- boss,
+- sound,
+- VFX,
+- basic progression.
+
+**Goal:**
+
+Produce something representing the final game's actual experience.
+
+---
+
+## Phase 3 — MVP
+
+Add:
+
+- tutorial,
+- progression,
+- save system,
+- analytics,
+- basic shop architecture,
+- rewarded ads,
+- performance optimization.
+
+**Goal:**
+
+Release an internal/closed-testable product.
+
+---
+
+## Phase 4 — Soft Launch
+
+Release to a limited audience.
+
+Measure:
+
+- retention,
+- tutorial completion,
+- run completion,
+- session frequency,
+- difficulty,
+- ad engagement.
+
+Do not dramatically expand content until the core retention metrics justify it.
+
+---
+
+## Phase 5 — Global Release
+
+Add:
+
+- additional biomes,
+- cosmetics,
+- additional heroes,
+- events,
+- improved progression,
+- additional bosses,
+- monetization optimization.
+
+---
+
+## Phase 6 — Live Operations
+
+Potential features:
+
+- Seasons
+- Battle Pass
+- Weekly Events
+- Limited Bosses
+- New Heroes
+- New Biomes
+- New Tile Mechanics
+- Global Challenges
+
+---
+
+# 61. Critical Design Risks
+
+## Risk 1 — Player Confusion
+
+Shifting entire rows and columns can initially feel unintuitive.
+
+**Solution:**
+
+Extremely short interactive tutorial and strong movement previews.
+
+---
+
+## Risk 2 — Too Much Randomness
+
+Procedural generation can produce unfair situations.
+
+**Solution:**
+
+Use rule-based procedural generation rather than unrestricted randomness.
+
+---
+
+## Risk 3 — Board Becomes Visually Chaotic
+
+Too many effects can make the puzzle unreadable.
+
+**Solution:**
+
+Prioritize tile readability over graphical complexity.
+
+---
+
+## Risk 4 — Crafting Becomes Confusing
+
+Too many recipes increase cognitive load.
+
+**Solution:**
+
+Start with obvious recipes and gradually introduce advanced combinations.
+
+---
+
+## Risk 5 — Monetization Hurts Retention
+
+Too many advertisements can make short sessions frustrating.
+
+**Solution:**
+
+Prioritize rewarded ads and carefully frequency-cap forced advertisements.
+
+---
+
+# 62. Major Design Decision: Hero Movement
+
+One rule must remain extremely clear throughout development:
+
+**The hero should not behave like a traditional controllable RPG character.**
+
+The identity of Eco-Rogue comes from:
+
+> **Manipulating the board to manipulate the battle.**
+
+Direct character movement should therefore either not exist or be reserved for extremely rare abilities.
+
+Otherwise the game risks losing its strongest differentiating mechanic.
+
+---
+
+# 63. Recommended First Play Experience
+
+**0–10 seconds**
+
+Logo → immediate gameplay.
+
+**10–30 seconds**
+
+Learn first swipe.
+
+**30–60 seconds**
+
+Collect and craft first item.
+
+**60–90 seconds**
+
+Kill first enemy.
+
+**~2 minutes**
+
+Select first powerful perk.
+
+**~3 minutes**
+
+Fight first mini-boss/boss.
+
+**~4 minutes**
+
+Receive rewards and see permanent progression.
+
+The player's first few minutes should demonstrate the entire emotional loop:
+
+**Puzzle → Combat → Craft → Power → Boss → Reward → Upgrade.**
+
+---
+
+# 64. Play Store Positioning
+
+Possible short description:
+
+**“Shift the world. Craft your build. Survive the chaos.”**
+
+Store messaging should emphasize the unique mechanic rather than describing the game simply as another roguelike.
+
+Potential screenshot sequence:
+
+**1 — SHIFT THE WORLD**
+
+Show a row being moved.
+
+**2 — CRAFT WHILE YOU FIGHT**
+
+Show resources merging.
+
+**3 — BUILD CRAZY COMBOS**
+
+Show perk synergies.
+
+**4 — OUTSMART MONSTERS**
+
+Show tactical enemy positioning.
+
+**5 — DEFEAT MASSIVE BOSSES**
+
+Show a boss modifying the board.
+
+---
+
+# 65. Long-Term Expansion Opportunities
+
+If the core game succeeds, the architecture can support:
+
+- new heroes,
+- additional biomes,
+- new enemies,
+- new crafting recipes,
+- special events,
+- seasonal boards,
+- daily challenge seeds,
+- endless survival,
+- boss rush,
+- leaderboards,
+- guild/community challenges,
+- asynchronous competitions.
+
+Multiplayer should not be an early priority.
+
+---
+
+# 66. Product Success Criteria
+
+The project should be considered successful initially if:
+
+1. New users understand shifting quickly.
+2. Grid movement feels satisfying even without rewards.
+3. Players willingly start multiple runs.
+4. Deaths feel understandable rather than random.
+5. Players experiment with different perk combinations.
+6. The procedural system creates meaningful variation.
+7. The game remains readable on small screens.
+8. Monetization does not interrupt the core puzzle experience.
+
+---
+
+# 67. Final Product Principle
+
+Every major feature should be tested against one question:
+
+> **“Does this make shifting the board more interesting?”**
+
+If the answer is no, the feature probably does not belong in the core game.
+
+The strongest version of **Eco-Rogue: Shift & Survive** is not a complicated RPG placed on top of a puzzle board.
+
+It is a game where **the board itself is the weapon, the movement system, the crafting system, and the primary source of strategy.**
