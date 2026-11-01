@@ -1,0 +1,44 @@
+name: Build and deploy site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build site and games
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='game-src' --exclude='_site' --exclude='README.md' ./ _site/
+          for d in game-src/*/; do
+            n=$(basename "$d")
+            if [ -f "$d/package.json" ]; then
+              echo "Building $n"
+              (cd "$d" && npm install --no-audit --no-fund && npm run build)
+              mkdir -p "_site/games/$n"
+              cp -r "$d/dist/." "_site/games/$n/"
+            fi
+          done
+      - name: Create sitemap, robots, ads.txt and AdSense code
+        run: node .github/scripts/build-site.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
