@@ -3,7 +3,7 @@
    "description":"High-octane 2D arcade racing. Dodge traffic, grab nitro power-ups, earn coins and unlock new cars in the garage.",
    "howToPlay":"Steer your car through traffic, collect coins and nitro, and survive as long as you can. Your best score and garage progress are saved on your device.",
    "controls":"Arrow keys or A/D to steer on desktop. On phones use the on-screen controls or tilt your device."},
-  {"slug":"eco-rogue","title":"Eco-Rogue: Shift & Survive","category":"Puzzle","url":"game-src/eco-rogue/","thumb":"assets/thumbs/eco-rogue.png","featured":false,"popular":true,"published":true,"added":"2026-10-24",
+  {"slug":"eco-rogue","title":"Eco-Rogue: Shift & Survive","category":"Puzzle","url":"games/eco-rogue/","thumb":"assets/thumbs/eco-rogue.png","featured":false,"popular":true,"published":true,"added":"2026-10-24",
    "description":"A tactical puzzle-roguelike on a 5×5 board. Slide rows and columns to craft, fight monsters, trigger combos and survive.",
    "howToPlay":"Swipe or drag rows and columns to shift tiles. Match resources to craft, line up attacks against enemies and pick perks between rounds.",
    "controls":"Swipe with a finger on mobile; click and drag with the mouse on desktop."}
